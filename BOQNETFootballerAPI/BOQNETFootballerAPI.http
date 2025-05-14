@@ -1,0 +1,6 @@
+@BOQNETFootballerAPI_HostAddress = http://localhost:5237
+
+GET {{BOQNETFootballerAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
