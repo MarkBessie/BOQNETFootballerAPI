@@ -43,34 +43,39 @@ These enhancements would allow richer relationships, better data normalization, 
 ## 📦 Project Structure
 
 ```bash
-FootballerStatsAPI/
-│
-├── Controllers/
+/Controllers
 │   ├── FootballerAPIController.cs
 │   └── FootballerStatsAPIController.cs
 │
-├── Models/
-│   ├── Footballer.cs
-│   └── FootballerMatchStats.cs
+/Data
+│   ├── AppDbContext.cs
+│   └── /Models
+│       ├── Footballer.cs
+│       ├── FootballerMatchStats.cs
+│       └── /DTO
+│           └── MatchStatsSummaryDto.cs
 │
-├── Services/
-│   ├── Interfaces/
-│   │   ├── IFootballer.cs
-│   │   └── IFootballerStats.cs
-│   └── Implementations/
-│       ├── FootballerService.cs
-│       └── FootballerStatsService.cs
+/Repositories
+│   ├── IFootballer.cs
+│   └── IFootballerStats.cs
 │
-├── Data/
-│   └── AppDbContext.cs
-│
-├── Dtos/
-│   └── MatchStatsSummaryDto.cs
-│
-└── Program.cs
+/Services
+│   ├── FootballerService.cs
+│   └── FootballerStatsService.cs
 
-# 📘 API Endpoints Overview
 
+📦 Structure Explanation
+Controllers/ – API entry points for handling HTTP requests.
+
+Data/ – Contains the EF Core AppDbContext and the domain models.
+
+Models/ – Core entities used throughout the application.
+
+DTO/ – Data Transfer Objects used for shaping API responses (e.g., summaries).
+
+Repositories/ – Interface definitions for the service layer.
+
+Services/ – Business logic and database operations implementatio
 ---
 
 ## 🧍‍♂️ Footballer Endpoints
