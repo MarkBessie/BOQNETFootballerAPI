@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using BOQNETFootballerAPI.Data.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace BOQNETFootballerAPI.Data
 {
@@ -6,7 +7,8 @@ namespace BOQNETFootballerAPI.Data
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
         {
-        }
-        
+
+        }       
+        public DbSet<Footballer> Footballer { get; set; }
     }
 }
