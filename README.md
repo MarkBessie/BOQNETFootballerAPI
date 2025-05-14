@@ -52,3 +52,18 @@ FootballerStatsAPI/
 │   └── MatchStatsSummaryDto.cs
 │
 └── Program.cs
+
+📋 API Endpoints
+🧍 Footballers
+Method	Route	Description
+GET	/api/Footballers	Get all footballers
+GET	/api/Footballers/{id}	Get a specific footballer
+POST	/api/Footballers	Create a new footballer
+PATCH	/api/Footballers/{id}	Update a footballer
+
+📊 Match Stats
+Method	Route	Description
+GET	/api/Footballers/{footballerId}/{matchId}/Stats	Get match stats for a footballer
+POST	/api/Footballers/Stats	Create new match stats
+GET	/api/Footballers/{footballerId}/Stats	Get all match stats for a footballer
+GET	/api/Footballers/{footballerId}/Stats/Summary	Get summarized stats for a footballer
