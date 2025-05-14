@@ -53,17 +53,47 @@ FootballerStatsAPI/
 │
 └── Program.cs
 
-📋 API Endpoints
-🧍 Footballers
-Method	Route	Description
-GET	/api/Footballers	Get all footballers
-GET	/api/Footballers/{id}	Get a specific footballer
-POST	/api/Footballers	Create a new footballer
-PATCH	/api/Footballers/{id}	Update a footballer
+# 📘 API Endpoints Overview
 
-📊 Match Stats
-Method	Route	Description
-GET	/api/Footballers/{footballerId}/{matchId}/Stats	Get match stats for a footballer
-POST	/api/Footballers/Stats	Create new match stats
-GET	/api/Footballers/{footballerId}/Stats	Get all match stats for a footballer
-GET	/api/Footballers/{footballerId}/Stats/Summary	Get summarized stats for a footballer
+---
+
+## 🧍‍♂️ Footballer Endpoints
+
+### ➕ Create a Footballer
+`POST /api/Footballers`
+- Creates a new footballer.
+
+### 📥 Get All Footballers
+`GET /api/Footballers`
+- Retrieves a list of all footballers.
+
+### 🔍 Get a Footballer by ID
+`GET /api/Footballers/{footballerId}`
+- Retrieves a single footballer by their ID.
+
+### 🛠️ Update a Footballer
+`PATCH /api/Footballers/{footballerId}`
+- Updates an existing footballer’s information.
+
+---
+
+## 📊 Footballer Match Stats Endpoints
+
+### ➕ Create Match Stats
+`POST /api/Footballers/Stats`
+- Creates new match stats for a footballer.
+
+### 📥 Get All Stats for a Footballer
+`GET /api/Footballers/{footballerId}/Stats`
+- Retrieves all recorded match stats for a specific footballer.
+
+### 🔍 Get Match Stats by Match ID and Footballer ID
+`GET /api/Footballers/{footballerId}/{matchId}/Stats`
+- Retrieves specific match stats for a footballer in a given match.
+
+### 📈 Get Stats Summary
+`GET /api/Footballers/{footballerId}/Stats/Summary`
+- Returns an aggregated summary: total goals, assists, matches played, total minutes, and average pass completion.
+
+---
+
