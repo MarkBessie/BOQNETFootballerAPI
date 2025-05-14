@@ -10,5 +10,6 @@ namespace BOQNETFootballerAPI.Data
 
         }       
         public DbSet<Footballer> Footballer { get; set; }
+        public DbSet<FootballerMatchStats> FootballerMatchStats { get; set; }
     }
 }

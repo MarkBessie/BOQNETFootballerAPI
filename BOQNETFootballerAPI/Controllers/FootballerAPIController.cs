@@ -5,8 +5,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BOQNETFootballerAPI.Controllers
 {
-    [Route("api/[controller]")]
+    
     [ApiController]
+    [Route("api/Footballers")]
     public class FootballerAPIController : ControllerBase
     {
         private readonly IFootballer _footballerService;
@@ -16,90 +17,47 @@ namespace BOQNETFootballerAPI.Controllers
         }
 
         [HttpGet]
-        [Route("Footballers")]
-        public IActionResult GetFootballers()
+        public async Task<IActionResult> GetFootballers()
         {
-            try
-            {
-              List<Footballer> footballers = _footballerService.GetAllFootballersAsync().Result;
-                if (footballers == null || footballers.Count == 0)
-                {
-                    return NotFound("No footballers found.");
-                }
-                return Ok(footballers);
+            var footballers = await _footballerService.GetAllFootballersAsync();
 
-            }
-            catch (Exception ex)
-            {
+            if (footballers == null || footballers.Count == 0)
+                return NotFound("No footballers found.");
 
-                return StatusCode(StatusCodes.Status500InternalServerError, $"Error fetching a list of footballers: {ex.Message}");
-
-            }
-
+            return Ok(footballers);
         }
 
-        [HttpGet]
-        [Route("Footballers/{footballerId}")]
-        public IActionResult GetFootballer(int footballerId)
+        [HttpGet("{footballerId}")]
+        public async Task<IActionResult> GetFootballer(int footballerId)
         {
-            try
-            {
-                List<Footballer> footballers = _footballerService.GetAllFootballersAsync().Result;
-                if (footballers == null || footballers.Count == 0)
-                {
-                    return NotFound("No footballers found.");
-                }
-                return Ok(footballers);
+            var footballer = await _footballerService.GetFootballerByIdAsync(footballerId);
 
-            }
-            catch (Exception ex)
-            {
+            if (footballer == null)
+                return NotFound($"Footballer with ID {footballerId} not found.");
 
-                return StatusCode(StatusCodes.Status500InternalServerError, $"Error fetching footballer with ID {footballerId}: {ex.Message}");
-            }
-
+            return Ok(footballer);
         }
 
         [HttpPost]
-        [Route("Footballers")]
-        public IActionResult CreateFootballer([FromBody] Footballer footballer)
+        public async Task<IActionResult> CreateFootballer([FromBody] Footballer footballer)
         {
-            try
-            {
-                if (footballer == null)
-                {
-                    return BadRequest("Footballer data is null.");
-                }
-                var createdFootballer = _footballerService.AddFootballerAsync(footballer).Result;
-                return CreatedAtAction(nameof(GetFootballers), new { id = createdFootballer.Id }, createdFootballer);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, $"Error creating footballer: {ex.Message}");
-            }
+            var createdFootballer = await _footballerService.AddFootballerAsync(footballer);
+
+            return CreatedAtAction(nameof(GetFootballer), new { footballerId = createdFootballer.FootballerId }, createdFootballer);
         }
 
-        [HttpPatch]
-        [Route("Footballers/{footballerId}")]
-        public IActionResult UpdateFootballer(int footballerId, [FromBody] Footballer footballer)
+        [HttpPatch("{footballerId}")]
+        public async Task<IActionResult> UpdateFootballer(int footballerId, [FromBody] Footballer footballer)
         {
-            try
-            {
-                if (footballer == null || footballer.Id != footballerId)
-                {
-                    return BadRequest("Footballer data is null or ID mismatch.");
-                }
-                var updatedFootballer = _footballerService.UpdateFootballerAsync(footballer).Result;
-                if (updatedFootballer == null)
-                {
-                    return NotFound($"Footballer with ID {footballerId} not found.");
-                }
-                return Ok(updatedFootballer);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, $"Error updating footballer: {ex.Message}");
-            }
+            if (footballerId != footballer.FootballerId)
+                return BadRequest("Footballer ID mismatch.");
+
+            var updatedFootballer = await _footballerService.UpdateFootballerAsync(footballer);
+
+            if (updatedFootballer == null)
+                return NotFound($"Footballer with ID {footballerId} not found.");
+
+            return Ok(updatedFootballer);
         }
     }
 }
