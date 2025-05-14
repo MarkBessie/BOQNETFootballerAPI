@@ -3,6 +3,7 @@ using System;
 using BOQNETFootballerAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BOQNETFootballerAPI.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250514174457_Opposition_FootballerMatchStats")]
+    partial class Opposition_FootballerMatchStats
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.5");
@@ -38,7 +41,7 @@ namespace BOQNETFootballerAPI.Migrations
 
                     b.HasKey("FootballerId");
 
-                    b.ToTable("Footballer", (string)null);
+                    b.ToTable("Footballer");
                 });
 
             modelBuilder.Entity("BOQNETFootballerAPI.Data.Models.FootballerMatchStats", b =>
@@ -68,7 +71,7 @@ namespace BOQNETFootballerAPI.Migrations
 
                     b.HasKey("FootballerMatchStatsId");
 
-                    b.ToTable("FootballerMatchStats", (string)null);
+                    b.ToTable("FootballerMatchStats");
                 });
 #pragma warning restore 612, 618
         }

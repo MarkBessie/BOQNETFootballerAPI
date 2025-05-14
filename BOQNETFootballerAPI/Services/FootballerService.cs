@@ -8,24 +8,24 @@ namespace BOQNETFootballerAPI.Services
     public class FootballerService : IFootballer
     {
         private readonly AppDbContext _db;
+
         public FootballerService(AppDbContext db)
         {
-                _db = db;
+            _db = db;
         }
+
         public async Task<Footballer> AddFootballerAsync(Footballer footballer)
         {
             try
             {
-               _db.Footballer.Add(footballer);
+                _db.Footballer.Add(footballer);
                 await _db.SaveChangesAsync();
                 return footballer;
             }
             catch (Exception ex)
             {
-
-                throw new Exception("There was an error adding the footballer:",ex);
+                throw new Exception("Error adding footballer", ex);
             }
-            
         }
 
         public async Task<List<Footballer>> GetAllFootballersAsync()
@@ -36,40 +36,34 @@ namespace BOQNETFootballerAPI.Services
             }
             catch (Exception ex)
             {
-
-                throw new Exception("There was an error retrieving the footballers:", ex);
+                throw new Exception("Error retrieving footballers", ex);
             }
-           
         }
 
         public async Task<Footballer> GetFootballerByIdAsync(int id)
         {
             try
             {
-                return await _db.Footballer.Where(f => f.Id == id)
-                    .FirstOrDefaultAsync();
+                return await _db.Footballer.FirstOrDefaultAsync(f => f.FootballerId == id);
             }
             catch (Exception ex)
             {
-                throw new Exception("There was an error retrieving the footballer:", ex);
+                throw new Exception("Error retrieving footballer", ex);
             }
-            
         }
 
-        public Task<Footballer> UpdateFootballerAsync(Footballer footballer)
+        public async Task<Footballer> UpdateFootballerAsync(Footballer footballer)
         {
             try
             {
                 _db.Footballer.Update(footballer);
-                _db.SaveChangesAsync();
-                return Task.FromResult(footballer);
+                await _db.SaveChangesAsync();
+                return footballer;
             }
             catch (Exception ex)
             {
-
-                throw new Exception("There was an error updating the footballer:", ex);
+                throw new Exception("Error updating footballer", ex);
             }
-            
         }
     }
 }
